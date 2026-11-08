@@ -13,36 +13,6 @@
     ./greeter
   ];
 
-  environment.sessionVariables = {
-    QT_QPA_PLATFORMTHEME = "qtengine";
-    XDG_SESSION_TYPE = "wayland";
-  };
-
-  programs.dconf.enable = true; # Required for gtk?
-
-  # Power management
-  services.upower.enable = true;
-  services.power-profiles-daemon.enable = true;
-
-  environment = {
-    systemPackages = with pkgs; [
-      #polkit_gnome # Not sure if this is needed since the service is defined below?
-
-      # For screen recording
-      wf-recorder
-      slurp
-    ];
-    variables = {
-      NIXOS_OZONE_WL = "1";
-      SDL_VIDEODRIVER = "wayland";
-      QT_QPA_PLATFORM = "wayland;xcb";
-      GSETTINGS_SCHEMA_DIR = "${pkgs.gnome.nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/";
-    };
-  };
-
-  security.polkit.enable = true;
-  services.udisks2.enable = true; # For udiskie automount to work
-
   # If an error occurs in any of the scripts here, the nixos-activation service will break
   system.userActivationScripts = {};
 
