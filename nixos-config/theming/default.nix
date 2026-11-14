@@ -5,11 +5,8 @@
   inputs,
   ...
 }: let
-
-  leaf-theme-manager = pkgs.callPackage ./LeafThemeManager {};
-
+  leaf-theme-manager = pkgs.callPackage ./../../src/LeafThemeManager {};
 in {
-
   imports = [
     ./qt.nix
     ./gtk.nix
@@ -17,9 +14,8 @@ in {
   ];
 
   users.users.${config.username}.packages = with pkgs; [
-
     # Icon themes
-    (pkgs.kora-icon-theme.overrideAttrs{
+    (pkgs.kora-icon-theme.overrideAttrs {
       /*
       postInstall = ''
         # MODIFICATION: Overwriting with custom icons
@@ -44,20 +40,17 @@ in {
     #qt6Packages.qt6ct
     leaf-theme-manager
     awww # Wallpaper manager
-    
+
     #inputs.matugen.packages.x86_64-linux.default
     matugen
-
   ];
 
   hjem.users.${config.username} = {
     clobberFiles = true;
     files = {
-
       ".config/wallust" = {
         source = ./wallust;
       };
-
     };
   };
 }
