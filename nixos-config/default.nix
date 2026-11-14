@@ -9,7 +9,7 @@
     ./theming
     ./fonts.nix
     ./greeter.nix
-    ./sound
+    ./sound.nix
     ../src/quickshell
   ];
 
