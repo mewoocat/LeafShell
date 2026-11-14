@@ -1,20 +1,20 @@
 {pkgs, ...}: {
-  fonts.fontDir.enable = true;
-  fonts.packages = with pkgs; [
-    nerd-fonts.space-mono
-  ];
+  fonts = {
+    fontDir = {
+      enable = true;
+    };
+    packages = with pkgs; [
+      # GUI
+      rubik
+      liberation_ttf
+      arkpandora_ttf
+      cantarell-fonts
 
-  fonts.packages = with pkgs; [
-    # GUI
-    rubik
-    liberation_ttf
-    arkpandora_ttf
-    cantarell-fonts
+      # Monospace
+      nerd-fonts.space-mono
 
-    # Monospace
-    nerd-fonts.space-mono
-
-    # Glyphs
-    material-symbols
-  ];
+      # Glyphs
+      material-symbols
+    ];
+  };
 }
