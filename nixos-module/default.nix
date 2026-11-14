@@ -15,9 +15,11 @@
     };
   };
 
-  config = lib.mkIf config.leaf-shell.enable {
-    imports = [
-      ./nixos-config
-    ];
-  };
+  imports = [
+    ./../nixos-config
+  ];
+
+  config =
+    lib.mkIf config.leaf-shell.enable {
+    };
 }
