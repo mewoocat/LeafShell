@@ -8,7 +8,7 @@
     ./screenlock
     ./theming
     ./fonts.nix
-    ./greeter
+    ./greeter.nix
     ./sound
     ../src/quickshell
   ];
