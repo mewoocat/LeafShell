@@ -21,11 +21,11 @@
       QT_QPA_PLATFORMTHEME = "qtengine";
       XDG_SESSION_TYPE = "wayland";
     };
-
-    # Power management
-    services.upower.enable = true;
-    services.power-profiles-daemon.enable = true;
   };
+
+  # Power management
+  services.upower.enable = true;
+  services.power-profiles-daemon.enable = true;
 
   # Autostarts gnome polkit
   # Needed for apps that require sudo permissions (i.e. gnome-disks)
@@ -42,12 +42,6 @@
       TimeoutStopSec = 10;
     };
   };
-
-  # Fonts
-  fonts.fontDir.enable = true;
-  fonts.packages = with pkgs; [
-    nerd-fonts.space-mono
-  ];
 
   users.users.${config.username}.packages = with pkgs; [
     xdg-utils # needed for discord/vesktop to open web links in default browser

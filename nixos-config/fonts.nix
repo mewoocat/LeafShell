@@ -1,4 +1,8 @@
-{ pkgs, ... } : {
+{pkgs, ...}: {
+  fonts.fontDir.enable = true;
+  fonts.packages = with pkgs; [
+    nerd-fonts.space-mono
+  ];
 
   fonts.packages = with pkgs; [
     # GUI
@@ -13,5 +17,4 @@
     # Glyphs
     material-symbols
   ];
-
 }
