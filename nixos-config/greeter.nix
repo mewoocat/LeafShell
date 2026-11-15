@@ -8,7 +8,7 @@
     settings = {
       default_session = let
         niri-config = pkgs.writeText "greeter-niri-config" ''
-          spawn-sh-at-startup "qs -p ${../src/quickshell/Windows/Greeter/Shell.qml} && pkill niri"
+          spawn-sh-at-startup "qs -p ${../src/quickshell/config/Windows/Greeter/Shell.qml} && pkill niri"
           hotkey-overlay {
               skip-at-startup
           }

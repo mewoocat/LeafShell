@@ -14,16 +14,14 @@
   shell-release = pkgs.writeShellScriptBin "leaf-shell-release" ''
     pkill quickshell
     quickshell \
-        --log-rules "*.debug=false;*.warning=false"
+        --log-rules "*.debug=false;*.warning=false" \
+        --path "${./config}"
   '';
-
   # quickshell's flake.nix is imcompatible with flake-compat.  create the package from the derivation in it's default.nix instead
   #qsDrv = import sources.quickshell;
   #qs = pkgs.callPackage qsDrv {};
 in {
-
   environment.systemPackages = with pkgs; [
-
     # Startup scripts
     shell-debug
     shell-release
@@ -34,7 +32,7 @@ in {
     # Overriding to add qml-niri plugin, apparently adding the plugin to the buildInputs works?
     /*
     (inputs.quickshell.packages.${config.hostSystem}.default.overrideAttrs (
-      prevAttrs: { 
+      prevAttrs: {
         buildInputs = [
           inputs.qml-niri.packages.${config.hostSystem}.default
         ] ++ prevAttrs.buildInputs;
@@ -42,13 +40,14 @@ in {
     ))
     */
     (quickshell.overrideAttrs (
-      prevAttrs: { 
-        buildInputs = [
-          inputs.qml-niri.packages.${config.hostSystem}.default
-        ] ++ prevAttrs.buildInputs;
+      prevAttrs: {
+        buildInputs =
+          [
+            inputs.qml-niri.packages.${config.hostSystem}.default
+          ]
+          ++ prevAttrs.buildInputs;
       }
     ))
-
 
     kdePackages.qtdeclarative # Add qml types in path for qmlls
     kdePackages.qt5compat # For Qt5Compat.GraphicalEffects
@@ -60,7 +59,7 @@ in {
 
     # Icon theme
     kdePackages.breeze
-    
+
     # Qt styles
     darkly
     adwaita-qt6
@@ -71,16 +70,17 @@ in {
   hjem.users.eXia = {
     enable = true;
     files = {
+      /*
       ".config/quickshell" = {
         #source = ./config;
         source = "/home/eXia/NixOS/modules/system/desktop-environments/leaf/quickshell/config/"; # For development
         clobber = true;
       };
+      */
       ".config/quickshell-widgets" = {
         source = inputs.qetris;
         clobber = true;
       };
     };
   };
-
 }

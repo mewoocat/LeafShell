@@ -32,7 +32,6 @@
     name = "qs-lock";
     runtimeInputs = [
       inputs.quickshell.packages.${config.hostSystem}.default
-      #(pkgs.callPackage (import sources.quickshell) {})
     ];
     text = ''       
       quickshell ipc call control lockScreen
