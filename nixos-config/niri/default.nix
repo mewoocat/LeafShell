@@ -7,7 +7,7 @@
   #programs.niri.package = inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
   # override to use config
-  systemd.services.niri = {
+  systemd.user.services.niri = {
     environment = {
       NIRI_CONFIG = ./config;
     };
