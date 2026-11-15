@@ -7,9 +7,10 @@
   #programs.niri.package = inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
   # override to use config
+  # Systemd unit override by added to nix artifiact like /nix/store/...-user-units/niri.service.d/overrides.conf
   systemd.user.services.niri = {
     environment = {
-      NIRI_CONFIG = ./config;
+      NIRI_CONFIG = ./config/config.kdl;
     };
   };
 
