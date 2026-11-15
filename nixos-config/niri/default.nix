@@ -6,6 +6,13 @@
   programs.niri.enable = true;
   #programs.niri.package = inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
+  # override to use config
+  systemd.services.niri = {
+    environment = {
+      NIRI_CONFIG = ./config;
+    };
+  };
+
   # systemctl status --user xdg-desktop-portal-gnome
   /*
   xdg.portal = {
@@ -25,6 +32,7 @@
     ];
   };
 
+  /*
   hjem.users.eXia = {
     enable = true;
     files = {
@@ -35,4 +43,5 @@
       };
     };
   };
+  */
 }

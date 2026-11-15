@@ -2,7 +2,8 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+in {
   imports = [
     ./niri
     ./screenlock
