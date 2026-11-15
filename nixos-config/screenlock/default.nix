@@ -8,8 +8,8 @@
   /*
   ags-lockscreen = pkgs.writeShellApplication {
     name = "ags-lock";
-    runtimeInputs = with pkgs; [  
-      # Need ags 
+    runtimeInputs = with pkgs; [
+      # Need ags
       (inputs.ags.packages.${config.hostSystem}.default.override {
         extraPackages = with pkgs;[
           gtk-session-lock
@@ -18,38 +18,36 @@
       coreutils # idk if this is needed anymore
       sassc
     ];
-    text = '' 
+    text = ''
       # This conditional check is not needed since attempting to run another ags process with same bus name fails
       # Only start lockscreen if it is not already running
-      #if ! busctl --user list | grep com.github.Aylur.ags.lockscreen 
+      #if ! busctl --user list | grep com.github.Aylur.ags.lockscreen
       #then
         ags -b lockscreen -c ~/.config/ags/Lockscreen.js
       #fi
     '';
   };
   */
-
   qs-lockscreen = pkgs.writeShellApplication {
     name = "qs-lock";
-    runtimeInputs = [   
+    runtimeInputs = [
       inputs.quickshell.packages.${config.hostSystem}.default
       #(pkgs.callPackage (import sources.quickshell) {})
     ];
-    text = '' 
+    text = ''       
       quickshell ipc call control lockScreen
     '';
   };
-in{
-
+in {
   systemd.services = {
     suspend-delay = {
       enable = true;
       description = "Adds a delay for starting the suspend.  Useful for making suspend wait for lockscreen to fully init";
-      wantedBy = [ "sleep.target" ];
-      before = [ "sleep.target" ]; 
+      wantedBy = ["sleep.target"];
+      before = ["sleep.target"];
       serviceConfig = {
         Type = "simple";
-        ExecStartPre = "${pkgs.coreutils}/bin/sleep 3"; 
+        ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
         ExecStart = "${pkgs.coreutils}/bin/true"; # Do nothing
       };
     };
@@ -62,9 +60,9 @@ in{
   systemd.user.services.hypridle = {
     enable = true;
     description = "hypridle service";
-    after = [ "graphical-session.target" ];
-    wantedBy = [ "graphical-session.target" ];
-    partOf = [ "graphical-session.target" ];
+    after = ["graphical-session.target"];
+    wantedBy = ["graphical-session.target"];
+    partOf = ["graphical-session.target"];
     unitConfig = {
       ConditionEnvironment = "WAYLAND_DISPLAY"; # Only start if WAYLAND_DISPLAY env var is set
     };
@@ -89,7 +87,7 @@ in{
       #ags-lockscreen # For the ags-lock command
       qs-lockscreen
 
-      config.programs.hyprland.package # For hyprctl
+      #config.programs.hyprland.package # For hyprctl
       config.programs.niri.package
     ];
 

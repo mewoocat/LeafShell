@@ -19,7 +19,11 @@
     ./../nixos-config
   ];
 
-  config =
-    lib.mkIf config.leaf-shell.enable {
+  config = lib.mkIf config.leaf-shell.enable {
+    environment = {
+      systemPackages = with pkgs; [
+        yazi
+      ];
     };
+  };
 }
