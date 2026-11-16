@@ -1,18 +1,19 @@
 {
   pkgs,
   inputs,
+  lib,
   ...
 }: {
   programs.niri.enable = true;
   #programs.niri.package = inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
-  # override to use config
-  # Systemd unit override by added to nix artifiact like /nix/store/...-user-units/niri.service.d/overrides.conf
   systemd.user.services.niri = {
     serviceConfig = {
-      ExecStart = "niri --config ${./config}/config.kdl";
+      ExecStart = lib.mkForce ["" "niri --config ${./config}/config.kdl"]; # Unset the previous command since commands will stack
     };
     /*
+    # override to use config
+    # Systemd unit override by added to nix artifiact like /nix/store/...-user-units/niri.service.d/overrides.conf
     environment = {
       NIRI_CONFIG = ./config/config.kdl;
     };
