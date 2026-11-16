@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   lib,
+  config,
   ...
 }: {
   programs.niri.enable = true;
@@ -9,7 +10,7 @@
 
   systemd.user.services.niri = {
     serviceConfig = {
-      ExecStart = lib.mkForce ["" "${programs.niri.package}/bin/niri --config ${./config}/config.kdl"]; # Unset the previous command since commands will stack
+      ExecStart = lib.mkForce ["" "${config.programs.niri.package}/bin/niri --config ${./config}/config.kdl"]; # Unset the previous command since commands will stack
     };
     /*
     # override to use config
