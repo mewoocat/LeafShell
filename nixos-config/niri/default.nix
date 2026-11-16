@@ -9,10 +9,14 @@
   # override to use config
   # Systemd unit override by added to nix artifiact like /nix/store/...-user-units/niri.service.d/overrides.conf
   systemd.user.services.niri = {
-    script = "niri --config ${./config}/config.kdl";
-    environment = {
-      #NIRI_CONFIG = ./config/config.kdl;
+    serviceConfig = {
+      ExecStart = "niri --config ${./config}/config.kdl";
     };
+    /*
+    environment = {
+      NIRI_CONFIG = ./config/config.kdl;
+    };
+    */
   };
 
   # systemctl status --user xdg-desktop-portal-gnome
