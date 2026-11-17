@@ -6,7 +6,7 @@
 }: let
   leaf-shell = pkgs.writeShellScriptBin "leaf-shell" ''
     pkill quickshell
-    ${pkgs.quickshell}/bin/quickshell \
+    quickshell \
         --log-rules "*.debug=false;*.warning=false" \
         --path "${./config}"
   '';
