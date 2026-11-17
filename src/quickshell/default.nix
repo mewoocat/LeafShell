@@ -17,11 +17,14 @@
         --path "${./config}"
   '';
 in {
-  environment.systemPackages = with pkgs; [
+  # In user packages so the user level niri.service unit can resolve it
+  users.users.${config.username}.packages = [
     # Startup scripts
     leaf-shell
     leaf-shell-debug
+  ];
 
+  environment.systemPackages = with pkgs; [
     # Installing globally to appease qmlls
     # https://quickshell.outfoxxed.me/docs/configuration/getting-started/
     #inputs.quickshell.packages.${config.hostSystem}.default # Quickshell package
