@@ -2,29 +2,25 @@
   config,
   pkgs,
   inputs,
-  #sources,
   ...
 }: let
-  shell-debug = pkgs.writeShellScriptBin "leaf-shell-debug" ''
+  leaf-shell = pkgs.writeShellScriptBin "leaf-shell" ''
     pkill quickshell
     quickshell \
-        --path "~/NixOS/modules/system/desktop-environments/leaf/quickshell/config/"
+        --path "${./config}"
   '';
 
-  shell-release = pkgs.writeShellScriptBin "leaf-shell-release" ''
+  leaf-shell-debug = pkgs.writeShellScriptBin "leaf-shell-release" ''
     pkill quickshell
-    quickshell \
+    ${pkgs.quickshell}/bin/quickshell \
         --log-rules "*.debug=false;*.warning=false" \
         --path "${./config}"
   '';
-  # quickshell's flake.nix is imcompatible with flake-compat.  create the package from the derivation in it's default.nix instead
-  #qsDrv = import sources.quickshell;
-  #qs = pkgs.callPackage qsDrv {};
 in {
   environment.systemPackages = with pkgs; [
     # Startup scripts
-    shell-debug
-    shell-release
+    leaf-shell
+    leaf-shell-debug
 
     # Installing globally to appease qmlls
     # https://quickshell.outfoxxed.me/docs/configuration/getting-started/
