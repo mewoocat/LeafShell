@@ -8,6 +8,7 @@
   programs.niri.enable = true;
   #programs.niri.package = inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
+  /*
   systemd.user.services.niri = {
     serviceConfig = {
       # lib.mkForce appears to be needed
@@ -16,15 +17,12 @@
         "${config.programs.niri.package}/bin/niri --config ${./config}/config.kdl"
       ];
     };
-    enableDefaultPath = false;
-    /*
-    # override to use config
     # Systemd unit override by added to nix artifiact like /nix/store/...-user-units/niri.service.d/overrides.conf
     environment = {
-      NIRI_CONFIG = ./config/config.kdl;
+      #NIRI_CONFIG = ./config/config.kdl; // Someting doesn't seem to work for this approach
     };
-    */
   };
+  */
 
   # systemctl status --user xdg-desktop-portal-gnome
   /*
