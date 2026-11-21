@@ -7,13 +7,12 @@
 }: {
   programs.niri.enable = true;
   #programs.niri.package = inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.default;
-
   systemd.user.services.niri = {
     serviceConfig = {
       # lib.mkForce appears to be needed
       ExecStart = lib.mkForce [
         "" # Unset the previous command since ExecStart commands will stack via systemd drop-in
-        "${config.programs.niri.package}/bin/niri --config ${./config}/config.kdl"
+        "${config.programs.niri.package}/bin/niri --session --config ${./config}/config.kdl"
       ];
     };
     # Systemd unit override by added to nix artifiact like /nix/store/...-user-units/niri.service.d/overrides.conf
