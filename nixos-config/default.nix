@@ -18,6 +18,12 @@ in {
   system.userActivationScripts = {};
 
   environment = {
+    variables = {
+      NIXOS_OZONE_WL = "1";
+      SDL_VIDEODRIVER = "wayland";
+      QT_QPA_PLATFORM = "wayland;xcb";
+      GSETTINGS_SCHEMA_DIR = "${pkgs.gnome.nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/";
+    };
     sessionVariables = {
       QT_QPA_PLATFORMTHEME = "qtengine";
       XDG_SESSION_TYPE = "wayland";
