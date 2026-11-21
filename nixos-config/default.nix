@@ -11,6 +11,7 @@ in {
     ./fonts.nix
     ./greeter.nix
     ./sound.nix
+    ./disks.nix
     ../src/quickshell
   ];
 
@@ -34,6 +35,7 @@ in {
   services.upower.enable = true;
   services.power-profiles-daemon.enable = true;
 
+  security.polkit.enable = true;
   # Autostarts gnome polkit
   # Needed for apps that require sudo permissions (i.e. gnome-disks)
   systemd.user.services.polkit-gnome-authentication-agent-1 = {

@@ -1,29 +1,31 @@
-{config, pkgs, inputs, ...} : let 
-
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}: let
   # GTK theme
   # TODO: pin the version of adw-gtk3
-  adw-gtk3-override = let 
+  adw-gtk3-override = let
     colorsImportText = "@import \"/home/${config.username}/.config/gtk-3.0/colors.css\";";
     lineToInsertAfter = "125";
-  in pkgs.adw-gtk3.overrideAttrs {
-    postInstall = ''
-      # Modify the gtk css to override specified colors
-      # This is needed since ~/.config/gtk-3.0/gtk.css can't be hot reloaded.  If we want to dynamically change
-      # the colors of the theme without requiring a restart of any running apps, the theme itself will need to
-      # import the dynamic colors
-      sed -i '${lineToInsertAfter}a ${colorsImportText}' $out/share/themes/adw-gtk3-dark/gtk-3.0/gtk.css
-      sed -i '${lineToInsertAfter}a ${colorsImportText}' $out/share/themes/adw-gtk3-dark/gtk-3.0/gtk-dark.css
+  in
+    pkgs.adw-gtk3.overrideAttrs {
+      postInstall = ''
+        # Modify the gtk css to override specified colors
+        # This is needed since ~/.config/gtk-3.0/gtk.css can't be hot reloaded.  If we want to dynamically change
+        # the colors of the theme without requiring a restart of any running apps, the theme itself will need to
+        # import the dynamic colors
+        sed -i '${lineToInsertAfter}a ${colorsImportText}' $out/share/themes/adw-gtk3-dark/gtk-3.0/gtk.css
+        sed -i '${lineToInsertAfter}a ${colorsImportText}' $out/share/themes/adw-gtk3-dark/gtk-3.0/gtk-dark.css
 
-      sed -i '${lineToInsertAfter}a ${colorsImportText}' $out/share/themes/adw-gtk3/gtk-3.0/gtk.css
-      sed -i '${lineToInsertAfter}a ${colorsImportText}' $out/share/themes/adw-gtk3/gtk-3.0/gtk-dark.css
-      #The gtk-dark.css in adw-gtk3 is the exact same as both the gtk.css and gtk-dark.css for adw-gtk3-dark
-    '';
-  };
-
+        sed -i '${lineToInsertAfter}a ${colorsImportText}' $out/share/themes/adw-gtk3/gtk-3.0/gtk.css
+        sed -i '${lineToInsertAfter}a ${colorsImportText}' $out/share/themes/adw-gtk3/gtk-3.0/gtk-dark.css
+        #The gtk-dark.css in adw-gtk3 is the exact same as both the gtk.css and gtk-dark.css for adw-gtk3-dark
+      '';
+    };
 in {
-
-  imports = [
-  ];
+  programs.dconf.enable = true; # Required for gtk?
 
   # This can be used to dynamically set gtk options
   # gsettings set org.gnome.desktop.interface icon-theme whitesur-gtk-theme
@@ -39,7 +41,6 @@ in {
   hjem.users.${config.username} = {
     clobberFiles = true;
     files = {
-
       ".config/gtk-3.0/settings.ini" = {
         text = ''
           [Settings]
@@ -72,5 +73,4 @@ in {
       };
     };
   };
-
 }
