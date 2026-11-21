@@ -16,6 +16,7 @@
         "${config.programs.niri.package}/bin/niri --config ${./config}/config.kdl"
       ];
     };
+    enableDefaultPath = false;
     /*
     # override to use config
     # Systemd unit override by added to nix artifiact like /nix/store/...-user-units/niri.service.d/overrides.conf
