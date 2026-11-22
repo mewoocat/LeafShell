@@ -12,6 +12,7 @@
       # lib.mkForce appears to be needed
       ExecStart = lib.mkForce [
         "" # Unset the previous command since ExecStart commands will stack via systemd drop-in
+        # --session is needed
         "${config.programs.niri.package}/bin/niri --session --config ${./config}/config.kdl"
       ];
     };
