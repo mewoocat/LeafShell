@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Wayland
 import qs as Root
 import qs.Components.Controls as Ctrls
 import qs.Components.Shared as Shared
@@ -221,9 +222,9 @@ Ctrls.Button {
                     }
 
                     // Needs https://github.com/niri-wm/niri/pull/4599
-                    //ScreencopyView {
-                    //    captureSource: ToplevelManager.toplevels.values[0]
-                    //}
+                    ScreencopyView {
+                        captureSource: ToplevelManager.toplevels.values[0]
+                    }
 
                 }
             }

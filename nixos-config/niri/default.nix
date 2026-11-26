@@ -6,7 +6,7 @@
   ...
 }: {
   programs.niri.enable = true;
-  #programs.niri.package = inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  programs.niri.package = inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.default;
   systemd.user.services.niri = {
     serviceConfig = {
       # lib.mkForce appears to be needed
